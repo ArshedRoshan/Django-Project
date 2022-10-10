@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+            <style>
+                ul {
+    list-style-type: none;
+}
+            </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h4 class="ml-5">Monthly Sales Report </h4>
+        <h1 class="d-flex " style="margin-left:20rem;"><strong>SLEEK GLAM</strong></h1>
+        <hr>
+        
+        <div class="col">
+            <h4>Company Name: SLEEKGLAM</h4>
+            <h4>Company Email: sleek@gmail.com</h4>
+            <h5>Company Phone: +914356289874</h5>
+            <h5>Company Location: xxx line,yyy nagar,pune,India</h5>
+
+        </div>
+        <hr>
+        </div>
+        <div class="row">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><strong>Date</strong></th>
+                        <th scope="col"><strong>products</strong></th>
+                        <th scope="col"><strong>Quantity</strong></th>
+                        <th scope="col"><strong>Total</strong></th>
+						<th scope="col"><strong>Order Number</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order_data  in order_data %}
+                    <tr>
+                        <td>{{order_data.created_at}}</td>
+                        <td>{{order_data.Product.productname}}</td>
+                        <td>{{order_data.quantity}}</td>
+                        <td>{{order_data.order_total}}</td>
+					    <td>{{order_data.order_number}}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                    <tr>
+                        <hr>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td colspan="2"></td>
+                        <td colspan="2"></td>
+                        <td></td>
+                        <td>
+                        
+                        </td>
+                    </tr>
+                </tbody>
+            
+            </table>
+                  
+        </div>
+
+       
+
+    
+</div>
+</body>
+</html>

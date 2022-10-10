@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sub Category create</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <!-- CSS only -->
+    <link rel="stylesheet" href={% static "css/style.css" %}>
+
+    <link href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' %}" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+
+<style>
+.ul.errorlist{
+    margin: 0px;
+
+}
+
+</style>
+
+<body>
+    {% comment %} <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                    
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul> {% endcomment %}
+                <form class="d-flex" role="search" style="margin-left:1000px">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+  
+
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light" style="width: 200px;">Sleek glam</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'adminhome'%}">Dashboard</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'user'%}">Users</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'category_list'%}">All categories</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'subcategory_list'%}">All Sub caregory</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'products_view'%}">Product</a> 
+                <a   class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'adminlogout' %}">Logout</a>
+                <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a> -->
+                <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a> -->
+                <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a> -->
+                <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card" style="width: 1068px; margin-left: 22px;">
+                    <div class="card-header">
+                        <h4>Sub Category create</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% for field in form %}
+
+
+                        <div class="form-group">
+                            <label>{{field.label}}</label>
+                           {% if  field.field.widget.input_type != "select" %}
+
+                            <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.name}}" class="form-control">
+                            {% endif %}
+
+                            {% if  field.field.widget.input_type == "select" %}
+
+                            <select name="{{ field.name }}" id="{{ field.name}}" class="form-control">
+                                {% for id,value in field.field.choices   %}
+                                <option value = {{id}}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                            {% endif %}
+
+                            {% if field.errors %}
+                            <div class="alert alert-info" style="margin: 10px; height: 57px;">
+                                {{ field.errors }} 
+
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                            <button class="btn btn-primary" type="submit">Save Sub category</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+document.getElementById("title").onkeyup=function(){
+    document.getElementById("url_slug").value=document.getElementById("title").value.toLowerCase().replace(" ","-");
+}
+
+</script>
+
+
+    </body>
+</html>

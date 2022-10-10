@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>Footwear - Free Bootstrap 4 Template by Colorlib</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet"> 
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<!-- Ion Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="{% static 'css/flexslider.css' %}">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+	
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="{%static 'css/bootstrap-datepicker.css' %}">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="{%static 'fonts/flaticon/font/flaticon.css' %}">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{%static 'css/style.css' %}">
+
+	</head>
+	<body>
+		
+	
+
+	<div id="page">
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 col-md-9">
+							<div id="colorlib-logo"><a href="index.html">Footwear</a></div>
+						</div>
+						<div class="col-sm-5 col-md-3">
+			            <form action="#" class="search-wrap">
+			               <div class="form-group">
+			                  <input type="search" class="form-control search" placeholder="Search">
+			                  <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
+			               </div>
+			            </form>
+			         </div>
+		         </div>
+					<div class="row">
+						<div class="col-sm-12 text-left menu-1">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li class="has-dropdown">
+									<a href="men.html">Men</a>
+									<ul class="dropdown active">
+										<li><a href="product-detail.html">Product Detail</a></li>
+										<li><a href="cart.html">Shopping Cart</a></li>
+										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="order-complete.html">Order Complete</a></li>
+										<li><a href="add-to-wishlist.html">Wishlist</a></li>
+									</ul>
+								</li>
+								<li><a href="women.html">Women</a></li>
+								<li><a href="blog.html">Blog</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="contact.html">Contact</a></li>
+								<li class="cart"><a href="cart.html"><i class="icon-shopping-cart"></i> Cart {{cart_count }}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sale">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-8 offset-sm-2 text-center">
+							<div class="row">
+								<div class="owl-carousel2">
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">25% off (Almost) Everything! Use Code: Summer Sale</a></h3>
+										</div>
+									</div>
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">Our biggest sale yet 50% off all summer shoes</a></h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+        <div class="container" style="margin: 0 auto;width: 50%;padding: 50px;background: #f1f1f1;margin-top: 50px;margin-bottom: 50px;">
+			<div class="row invoice row-printable">
+				<div class="col-md-12">
+					<!-- col-lg-12 start here -->
+					<div class="panel panel-default plain" id="dash_0"> -->
+						<!-- Start .panel -->
+						<div class="panel-body p30">
+							<div class="row">
+								<!-- Start .row -->
+								<div class="col-lg-6">
+									<!-- col-lg-6 start here -->
+									<div class="invoice-logo"><h3 style="max-height: 40px;">SleekGlam</h3> </div>
+								</div>
+								<!-- col-lg-6 end here -->
+								<div class="col-lg-6">
+									<!-- col-lg-6 start here -->
+									<div class="invoice-from">
+										<ul class="list-unstyled text-right">
+											<li><strong>Invoiced To</strong></li>
+											<li>{{order.full_name}}</li>
+											<li>{{order.full_address}}</li>
+											<li>{{order.city}}, {{order.state}}</li>
+											<li>{{order.country}}</li>
+										</ul>
+									</div>
+								</div>
+								<!-- col-lg-6 end here -->
+								<div class="col-lg-12">
+									<!-- col-lg-12 start here -->
+									<div class="invoice-details mt25">
+										<div class="well">
+											<ul class="list-unstyled mb0">
+												<li>Order<strong> {{order.order_number}}</a></strong> </li>
+												<li>Transaction ID <strong>{{order.payment.payment_id}}</strong></li>
+												<li><strong>Order Date:</strong> {{order.created_at}}</li>
+												<li><strong>Status:</strong> {{order.payment.status}}</li>
+											</ul>
+										</div>
+									</div>
+		
+									<div class="invoice-items">
+										<div class="table-responsive" style="overflow: hidden; outline: none;" tabindex="0">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th class="per70 text-center">Products</th>
+														<th class="per5 text-center">Qty</th>
+														<th class="per25 text-center">Total</th>
+													</tr>
+												</thead>
+												<tbody>
+												  {% for item in order_details %}
+													<tr>
+														<td>{{item.Product.productname}}
+
+														</td>
+														<td class="text-center">{{item.quantity}}</td>
+														<td class="text-center">{{item.product_price}}Rs</td>
+													</tr>
+												  {% endfor %}
+												</tbody>
+												<tfoot>
+													<tr>
+														<th colspan="2" class="text-right">Sub Total:</th>
+														<th class="text-center">{{order.order_total}} Rs</th>
+													</tr>
+													<tr>
+														<th colspan="2" class="text-right">Tax:</th>
+														<th class="text-center">{{order.tax}}Rs</th>
+													</tr>
+		
+													<tr>
+														<th colspan="2" class="text-right">Grand Total:</th>
+														<th class="text-center">{{order.order_total}} Rs</th>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</div>
+									<div class="invoice-footer mt25">
+										<p class="text-center">Thank you for shopping with us!</p>
+									</div>
+
+									<div>
+										<a href="/invoice_gen/{{order.id}}" class="btn btn-danger">Download Invoice</a>
+										
+								
+										<a href="{%url 'home' %}" class="btn btn-primary">Back to home</a>
+								
+									</div>
+								</div>
+                                </div>
+								
+                        </div>
+                    </div>
+					
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

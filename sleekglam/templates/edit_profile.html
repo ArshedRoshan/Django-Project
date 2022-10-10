@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+
+</head>
+
+
+<body>
+    <style>
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+            font-size: 1rem;
+            line-height: 2.15;
+            padding-left: .75em;
+            padding-right: .75em;
+        }
+
+        .card-registration .select-arrow {
+            top: 13px;
+        }
+
+        .img-fluid {
+            height: 762px;
+        }
+    </style>
+    <section class="h-150 bg-dark">
+     
+        <form  method="post">
+            {% csrf_token %}
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col">
+                        <div class="card card-registration my-4">
+                            <div class="row g-0">
+                                
+                                <div class="col-xl-6">
+                                    <div class="card-body p-md-5 text-black">
+                                        <h3 class="mb-5 text-uppercase">Update</h3>
+                                        {% include 'alert.html' %}
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                   <input type="text" class="form-control"  id="first_name" name="first_name" value={{ obj1.first_name }} >
+                                                    <label class="form-label" for="form3Example1m">First name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    <input type="text" class="form-control" value= {{ obj1.last_name }} id="last_name" name="last_name" placeholder="Last Name">
+                                                    <label class="form-label" for="form3Example1n">Last name</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input class="form-control" type="text"  id="" name="phone_number" value={{ obj1.phone_number }} placeholder="Phone Number">
+                                            <label class="form-label" for="form3Example8">Phone Number</label>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input class="form-control" type="text"  id="" name="email" value={{ obj1.email }} placeholder="Email ID">
+                                            <label class="form-label" for="form3Example97">Email ID</label>
+                                        </div>
+                                       <div class="form-outline mb-4">
+                                        <input class="form-control" type="text"  id="" name="password" value={{ obj1.password }} placeholder="password">
+                                            <label class="form-label" for="form3Example97">Password</label>
+                                        </div> 
+
+                                        <div class="form-outline mb-4">
+                                            <input class="form-control" type="text"  id="" name="confirmPassword" value={{obj1.confirmpassword}} placeholder="Confirm password">
+                                            <label class="form-label" for="form3Example97"> Confirm Password</label>
+                                        </div> 
+
+                                        <div class="d-flex justify-content-end pt-3">
+                                            <!-- <button type="button" class="btn btn-light btn-lg">Reset all</button> -->
+                                            <button type="submit" class="btn btn-warning btn-lg ms-2">Update</button>
+                                        </div>
+
+                                       
+
+                                        {% comment %} <div class="form-check d-flex justify-content-center mb-5">
+                          
+                                            <span>
+                                              {% for message in messages%}
+                                              <h6 style="color: rgb(150, 16, 16);">*{{message}}</h6>
+                                              {%endfor%}
+                                            </span>
+                                          </div>  {% endcomment %}
+                                          {{ form.email.errors }}
+                                          {{ form.non_field_errors }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+        <script>
+          setTimeout(function(){
+            $('#message').fadeOut('slow')
+          },3000)
+        </script>
+</body>
+
+</html>

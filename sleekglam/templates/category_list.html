@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Category list</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="">
+  <!-- CSS only -->
+  <link rel="stylesheet" href={% static "css/style.css" %}>
+  <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+
+<style>
+  .article {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    background-color: #fff;
+    border-radius: 3px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+  .article .article-header {
+    height: 170px;
+    position: relative;
+    overflow: hidden;
+  }
+  .article .article-header .article-image {
+    background-color: #fbfbfb;
+    background-position: center;
+   
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  .article .article-header .article-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.01) 1%, rgba(0, 0, 0, 0.65) 98%, rgba(0, 0, 0, 0.65) 100%);
+    padding: 10px;
+  }
+  .article .article-header .article-title h2 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .article .article-header .article-title h2 a {
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+  }
+  .article .article-details {
+    background-color: #fff;
+    padding: 20px;
+    line-height: 24px;
+  }
+  .article .article-details .article-cta {
+    text-align: center;
+  }
+  .article .article-header .article-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+  .article .article-header .article-badge .article-badge-item {
+    padding: 7px 15px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 12px;
+  }
+  .article .article-header .article-badge .article-badge-item .ion, .article .article-header .article-badge .article-badge-item .fas, .article .article-header .article-badge .article-badge-item .far, .article .article-header .article-badge .article-badge-item .fab, .article .article-header .article-badge .article-badge-item .fal {
+    margin-right: 3px;
+  }
+  .article.article-style-b .article-details .article-title {
+    margin-bottom: 10px;
+  }
+  .article.article-style-b .article-details .article-title h2 {
+    line-height: 22px;
+  }
+  .article.article-style-b .article-details .article-title a {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .article.article-style-b .article-details p {
+    color: #34395e;
+  }
+  .article.article-style-b .article-details .article-cta {
+    text-align: right;
+  }
+  .article.article-style-c .article-header {
+    height: 233px;
+  }
+  .article.article-style-c .article-details .article-category {
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    color: #34395e;
+  }
+  .article.article-style-c .article-details .article-category a {
+    font-size: 10px;
+    color: #34395e;
+    font-weight: 700;
+  }
+  .article.article-style-c .article-details .article-title {
+    margin-bottom: 10px;
+  }
+  .article.article-style-c .article-details .article-title h2 {
+    line-height: 22px;
+  }
+  .article.article-style-c .article-details .article-title a {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .article.article-style-c .article-details p {
+    color: #34395e;
+  }
+  .article.article-style-c .article-user {
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .article.article-style-c .article-user img {
+    border-radius: 50%;
+    float: left;
+    width: 45px;
+    margin-right: 15px;
+  }
+  .article.article-style-c .article-user .user-detail-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .article.article-style-c .article-user .user-detail-name a {
+    font-weight: 700;
+  }
+  
+  @media (max-width: 575.98px) {
+    .article .article-style-c .article-header {
+      height: 225px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .article {
+      margin-bottom: 40px;
+    }
+    .article .article-header {
+      height: 195px !important;
+    }
+    .article.article-style-c .article-header {
+      height: 155px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .article.article-style-c .article-header {
+      height: 216px;
+    }
+    .article .article-header {
+      height: 155px;
+    }
+  }
+  
+  
+
+
+
+
+
+
+
+
+</style>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      {% comment %} <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+          <li><a class="dropdown-item" href="{% url 'adminlogout' %}">Logout</a></li>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled"> Category List </a>
+          </li>
+        </ul> {% endcomment %}
+        <form class="d-flex" role="search"  style="margin-left: 50px;"">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+ 
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+      <div class="sidebar-heading border-bottom bg-light" style="width: 200px;">Sleek glam</div>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'adminhome'%}">Dashboard</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'user'%}">Users</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'category_create'%}">Add category</a>
+          <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'subcategory_list'%}">All Sub caregory</a> 
+          <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'subcategory_create'%}">Add Sub category</a>
+          <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'products_view'%}">Product</a>
+          <a  class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'banners' %}">Banner Managment</a>
+          <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'coupon_list' %}">Coupon Managment</a>
+          <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'adminlogout' %}">Logout</a>
+        <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a> -->
+        <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a> -->
+        <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a> -->
+        <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a> -->
+      </div>
+    </div>
+
+    <!-- <form action="" method="post">
+      {% csrf_token %} -->
+      <div class="row"  d-flex" style="width: 100%; ">
+      {% for category in categories_list %}
+      
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3" ">
+          <article class="article article-style-b">
+            <div class="article-header">
+
+           
+              <div class="article-image" data-background="{{category.thumbnail.url}} "
+                style="background-image: url(&quot;{{category.thumbnail.url}}&quot;);">
+              </div> 
+              <div class="article-badge">
+                <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i> {{ category.title}}</div>
+              </div>
+            </div>
+            <div class="article-details">
+              <p>{{ category.description}} </p>
+              <p>url_slug:{{ category.slug}} </p>
+              <div class="article-cta">
+                <a href="{% url 'category_update' category.id %}" class="btn btn-warning">EDIT<i class="fas fa-chevron-right"></i></a>
+              </div>
+
+               <div class="article-cta">
+                <a href="{% url 'category_delete' category.id %}"  class="btn btn-warning">Delete<i class="fas fa-chevron-right"></i></a>
+              </div> 
+            </div>
+          </article>
+        </div>
+        {% endfor %} 
+      </div> 
+    <!-- </form> -->
+  </div>
+  <!-- </form> -->
+</div>
+</body>
+
+</html>

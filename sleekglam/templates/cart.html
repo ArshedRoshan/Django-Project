@@ -1,0 +1,482 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Footwear - Free Bootstrap 4 Template by Colorlib</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<!-- Ion Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="{% static 'css/flexslider.css' %}">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    
+	<script src="https://unpkg.com/htmx.org@1.8.0"></script>
+</head>
+
+<body>
+
+	<!-- <div class="colorlib-loader"></div>-->
+
+	<div id="page">
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 col-md-9">
+							<div id="colorlib-logo"><a href="index.html">Footwear</a></div>
+						</div>
+						<div class="col-sm-5 col-md-3">
+							<form action="#" class="search-wrap">
+								<div class="form-group">
+									<input type="search" class="form-control search" placeholder="Search">
+									<button class="btn btn-primary submit-search text-center" type="submit"><i
+											class="icon-search"></i></button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 text-left menu-1">
+							<ul>
+								<li><a href="{% url 'home' %}">Home</a></li>
+								<li class="has-dropdown active">
+									<a href="men.html">Men</a>
+									<ul class="dropdown">
+										<li><a href="product-detail.html">Product Detail</a></li>
+										<li><a href="cart.html">Shopping Cart</a></li>
+										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="order-complete.html">Order Complete</a></li>
+										<li><a href="add-to-wishlist.html">Wishlist</a></li>
+									</ul>
+								</li>
+								<li><a href="women.html">Women</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="contact.html">Contact</a></li>
+								<li class="cart"><a href="{% url 'cart' %}"><i class="icon-shopping-cart"></i> Cart {{cart_count}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sale">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-8 offset-sm-2 text-center">
+							<div class="row">
+								<div class="owl-carousel2">
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">25% off (Almost) Everything! Use Code: Summer Sale</a></h3>
+										</div>
+									</div>
+									<div class="item">
+										<div class="col">
+											<h3><a href="#">Our biggest sale yet 50% off all summer shoes</a></h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="index.html">Home</a></span> / <span>Shopping Cart</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="colorlib-product">
+			<div class="container">
+				<div class="row row-pb-lg">
+					<div class="col-md-10 offset-md-1">
+						<div class="process-wrap">
+							<div class="process text-center active">
+								<p><span>01</span></p>
+								<h3>Shopping Cart</h3>
+							</div>
+							<div class="process text-center">
+								<p><span>02</span></p>
+								<h3>Checkout</h3>
+							</div>
+							<div class="process text-center">
+								<p><span>03</span></p>
+								<h3>Order Complete</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if not cart_items %}
+				<h2 style="margin-left: 345px;">Your Shopping Cart is Empty</h2>
+				<br>
+				<div class="text-center">
+					<a href="{% url 'home' %}" class="btn btn-primary">Continue Shopping</a>
+				</div>
+
+
+
+				{% else %}
+				<table class="table" style="margin-top:4px;margin-left:7px">
+					<thead class="thead-dark">
+						<tr>
+
+							<th scope="col">Product Details</th>
+							<th scope="col">Product Name</th>
+							<th scope="col">quantity</th>
+							<th scope="col">Price</th>
+							<th scope="col">Total</th>
+							<th scope="col">Remove</th>
+							<!-- <th scope="col">Block</th> -->
+
+						</tr>
+					</thead>
+					<tbody>
+						{% for cart_item in cart_items %}
+						<div class="product_data">
+							<tr>
+								<td><img src="{{cart_item.product.image.url}}" style="height: 80px;"></td>
+								<td><a href="">{{cart_item.product.productname}}</a></td>
+							</div>
+							<td>
+								<div class="d-flex">
+								<div>
+									<button class="" style="border:none;" hx-post="{%url 'minus' cart_item.product.id cart_item.id %}" hx-target="#tests{{ cart_item.id }}" hx-trigger="click">-</button>
+								</div>
+							<div id="tests{{cart_item.id}}">
+								{{ cart_item.quantity }}
+								</div>
+							<div>
+								<button  class=""  style="border:none;" hx-post="{%url 'plus' cart_item.product.id cart_item.id %}" hx-target="#tests{{ cart_item.id }}" hx-trigger="click" >+</button>
+							</div>
+						</div>
+							</td>
+
+
+
+								{% comment %} <td class="p-4"><span  class="qty-input p-3"><a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}">-</a>&nbsp;{{cart_item.quantity}}&nbsp;<a href="{% url 'add_cart' cart_item.product.id %}">+</a>
+										<!-- <button  type="button" id="button-plus"><i fa fa-plus></i></button> -->
+									</span> {% endcomment %}
+								</td>
+								<td>{{cart_item.product.price}}</td>
+								<td>{{cart_item.sub_total.coupon.discount}}</td>
+								<td> <a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-danger"
+										onclick="confirm('Are you sure?')">Remove </a></td>
+
+								<!-- <td><a href="{{i.id}}" class="btn btn-warning">Block/Unblock</a></td> -->
+							</tr>
+							<div>
+
+
+								<script>
+
+									$(document).ready(function () {
+														
+										$('#decre{{c.id}}').click(function (e) { 
+										e.preventDefault();
+										console.log('entered')
+										k=document.getElementById("tests{{cart_item.id}}").innerHTML;
+										console.log(k);
+										l=parseInt(k)
+										console.log(l);
+									  
+										value={{c.product.price}} * (l-1);
+									   
+							
+										console.log(value);   
+										$(this).closest('.product_data').find('#each_total{{cart_item.id}}').val(value);
+										
+										
+										
+										});
+										
+										$('#incre{{c.id}}').click(function (e) { 
+										e.preventDefault();
+										console.log('entered')
+										k=document.getElementById("tests{{cart_item.id}}").innerHTML
+									   
+										l=parseInt(k)
+							
+										sum=0;
+										value={{cart_item.product.price}} * (l+1) ;
+										
+							
+										$(this).closest('.product_data').find('#each_total{{cart_item.id}}').val(value);
+										
+										
+										
+										});
+										
+										});
+										
+										
+										
+								</script>
+
+
+
+
+
+								{% endfor %}
+					</tbody>
+				</table>
+				{% endif %}
+
+				<div class="row row-pb-lg">
+					<div class="col-md-12">
+						<div class="total-wrap">
+							<div class="row">
+								<div class="col-sm-8">
+									<form method='post'>
+										{% csrf_token%}
+										
+										<div class="row form-group" style="margin-top: 105px;">
+											<div class="col-sm-9">
+												<input type="text" name="coupon_code" class="form-control input-number"
+													placeholder="Your Coupon Number...">
+											</div>
+											<div class="col-sm-3">
+												<button type='submit' class="btn btn-primary">Apply coupon</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="col-sm-4 text-center">
+									<div class="total">
+										<div class="sub">
+											<p><span>Subtotal:</span> <span>{{total}} rs</span></p>
+											<p><span>Tax:</span> <span>{{tax}} rs</span></p>
+											<!-- <p><span>Discount</span> <span>Rs{{discount}}</span></p> -->
+										</div>
+										<div class="grand-total">
+											<p><span><strong>Grand Total</strong></span> <span>{{grand_total}} rs</span>
+											</p>
+										</div>
+
+										<a href="{% url 'home' %}" class="btn btn-light btn-block mt-5">Continue
+											Shopping</a>
+										<a href="{% url 'checkout' %}" class="btn btn-primary btn-block mt-5">Check
+											Out</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm">
+						<h2>Related Products</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-lg-3 mb-4 text-center">
+						<div class="product-entry border">
+							<a href="#" class="prod-img">
+								<img src="images/item-1.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+							</a>
+							<div class="desc">
+								<h2><a href="#">Women's Boots Shoes Maca</a></h2>
+								<span class="price">$139.00</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-lg-3 mb-4 text-center">
+						<div class="product-entry border">
+							<a href="#" class="prod-img">
+								<img src="images/item-2.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+							</a>
+							<div class="desc">
+								<h2><a href="#">Women's Minam Meaghan</a></h2>
+								<span class="price">$139.00</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-lg-3 mb-4 text-center">
+						<div class="product-entry border">
+							<a href="#" class="prod-img">
+								<img src="images/item-3.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+							</a>
+							<div class="desc">
+								<h2><a href="#">Men's Taja Commissioner</a></h2>
+								<span class="price">$139.00</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-lg-3 mb-4 text-center">
+						<div class="product-entry border">
+							<a href="#" class="prod-img">
+								<img src="images/item-4.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+							</a>
+							<div class="desc">
+								<h2><a href="#">Russ Men's Sneakers</a></h2>
+								<span class="price">$139.00</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="colorlib-footer" role="contentinfo">
+			<div class="container">
+				<div class="row row-pb-md">
+					<div class="col footer-col colorlib-widget">
+						<h4>About Footwear</h4>
+						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+							unorthographic life</p>
+						<p>
+						<ul class="colorlib-social-icons">
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+						</ul>
+						</p>
+					</div>
+					<div class="col footer-col colorlib-widget">
+						<h4>Customer Care</h4>
+						<p>
+						<ul class="colorlib-footer-links">
+							<li><a href="#">Contact</a></li>
+							<li><a href="#">Returns/Exchange</a></li>
+							<li><a href="#">Gift Voucher</a></li>
+							<li><a href="#">Wishlist</a></li>
+							<li><a href="#">Special</a></li>
+							<li><a href="#">Customer Services</a></li>
+							<li><a href="#">Site maps</a></li>
+						</ul>
+						</p>
+					</div>
+					<div class="col footer-col colorlib-widget">
+						<h4>Information</h4>
+						<p>
+						<ul class="colorlib-footer-links">
+							<li><a href="#">About us</a></li>
+							<li><a href="#">Delivery Information</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="#">Support</a></li>
+							<li><a href="#">Order Tracking</a></li>
+						</ul>
+						</p>
+					</div>
+
+					<div class="col footer-col">
+						<h4>News</h4>
+						<ul class="colorlib-footer-links">
+							<li><a href="blog.html">Blog</a></li>
+							<li><a href="#">Press</a></li>
+							<li><a href="#">Exhibitions</a></li>
+						</ul>
+					</div>
+
+					<div class="col footer-col">
+						<h4>Contact Information</h4>
+						<ul class="colorlib-footer-links">
+							<li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
+							<li><a href="tel://1234567920">+ 1235 2355 98</a></li>
+							<li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
+							<li><a href="#">yoursite.com</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="copy">
+				<div class="row">
+					<div class="col-sm-12 text-center">
+						<p>
+							<span>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;
+								<script>document.write(new Date().getFullYear());</script> All rights reserved | This
+								template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+									href="https://colorlib.com" target="_blank">Colorlib</a>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</span>
+							<span class="block">Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a>
+								, <a href="http://pexels.com/" target="_blank">Pexels.com</a></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	{% comment %} <div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+	</div> {% endcomment %}
+
+
+	<script>
+		document.body.addEventListener('htmx:configRequest', (event) => {
+			event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+		})
+	</script>
+	
+
+
+	<!-- jQuery -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<!-- popper -->
+	<script src="{% static 'js/popper.min.js' %}"></script>
+	<!-- bootstrap 4.1 -->
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<!-- jQuery easing -->
+	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+	<!-- Waypoints -->
+	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+	<!-- Flexslider -->
+	<script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
+	<!-- Owl carousel -->
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<!-- Magnific Popup -->
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'js/magnific-popup-options.js' %}"></script>
+	<!-- Date Picker -->
+	<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+	<!-- Stellar Parallax -->
+	<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+	<!-- Main -->
+	<script src="{% static 'js/main.js' %}"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</body>
+
+</html>

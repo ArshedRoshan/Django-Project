@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Admin dashboard</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="">
+  <!-- CSS only -->
+  <link rel="stylesheet" href={% static "css/style.css" %}>
+
+  <link href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' %}" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      {% comment %} <a class="navbar-brand" href="#">Navbar</a> {% endcomment %}
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% comment %} <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a> {% endcomment %}
+            {% comment %} <ul class="dropdown-menu">
+
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul> {% endcomment %}
+        <form class="d-flex" role="search" style="margin-left:1000px">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+      <div class="sidebar-heading border-bottom bg-light" style="width: 200px;">Sleek glam</div>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'user'%}">Users</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'category_list'%}">Allcaregory</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'category_create'%}">Add category</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'subcategory_list'%}">All Sub caregory</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'subcategory_create'%}">Add Sub category</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'products_view'%}">Product</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'order_management' %}">Order Management</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'banners' %}">BannerManagment</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'coupon_list' %}">Coupon Managment</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'cat_list' %}">Category
+          Offer</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'pro_list' %}">Product
+          Offer</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'sales_report_date' %}">Sales Report</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3"
+          href="{% url 'adminlogout' %}">Logout</a>
+      </div>
+    </div>
+      
+  
+
+
+    
+
+      <div class="col">
+        <div class="d-flex justify-content-between">
+
+          <div class=" m-3">
+
+            <td><a href="{% url 'add_coupon' %}"><button type="submit" class="btn btn-outline-success">AddCoupon</button></a></td>
+
+          </div>
+        </div>
+        <div class="container-fluid">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+
+                  <th scope="col">Coupon name</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">valid to</th>
+                  <th scope="col">No.of Coupons</th>
+                  <th scope="col">Edit coupon</th>
+                  <th scope="col">Delete</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for coupon in coupon %}
+                <tr>
+                  <th scope="row">{{ coupon.coupon_code }}</th>
+                  <td>{{ coupon.discount }}</td>
+                  <td>{{ coupon.valid_to }}</td>
+                  <td>{{ coupon.max_limit }}</td>
+
+                  <td>
+                    <a href="{% url 'coupon_edit' coupon.id %}">
+                      <button type="button" class="btn btn-warning mt-2">Edit Coupon</button>
+                    </a>
+                  </td>
+                  <td>
+                    {% if coupon.active == True %}
+                    <a href="{% url 'coupon_disable' coupon.id %}">
+                      <button type="button" class="btn btn-primary mt-2">Block</button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'coupon_disable' coupon.id %}">
+                      <button type="button" class="btn btn-danger mt-2">Delete</button>
+                    </a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        
+
+
+    
+
+    
+
+</body>
+
+</html>
