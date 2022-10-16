@@ -26,6 +26,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa 
 from django.db.models import Sum
 import csv
+from django.views.decorators.cache import never_cache
 
 
 # Create your views here.
@@ -48,7 +49,7 @@ def adminslogins(request):
             return render(request, 'adminlogin.html')
     else:
         return render(request, 'adminlogin.html', )
-
+@never_cache
 def adminhome(request):
     if 'adminSession' in request.session:
         p=0
@@ -105,6 +106,8 @@ def adminhome(request):
         return render(request,'admin.html',context)
     else:
         return render(request,'adminlogin.html')
+    
+@never_cache
 def adminlogout(request):
     if 'adminSession' in request.session:
        del request.session['adminSession']
@@ -122,11 +125,11 @@ def users(request):
 def blockuser(request,id):
     if 'adminSession' in request.session:
         user = Account.objects.get(id=id)
-        if user.status is True:
-            user.status = False
+        if user.status is False:
+            user.status = True
             user.save()
         else:
-            user.status = True
+            user.status = False
             user.save()
         return redirect(users)
     else:

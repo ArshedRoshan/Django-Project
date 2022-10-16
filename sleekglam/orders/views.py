@@ -53,14 +53,7 @@ from django.contrib import messages
     
 #         return render(request,'payment.html',context)
 
-
-    
-    
-    
-    
-    
-    
-    
+  
     
 def payments(request):
     body = json.loads(request.body)
@@ -79,18 +72,17 @@ def payments(request):
     order.payment = payment
     order.is_ordered = True
     order.save()
-    
-    for item in cart_items:
-                orderproduct = OrderProduct()
-                print(item.product_id,"product id")
-                orderproduct.order_id = order.id 
-                orderproduct.Product= item.product
-                orderproduct.user_id = request.user.id
-                orderproduct.quantity = item.quantity
-                orderproduct.product_price = item.product.price
-                orderproduct.ordered = True
-                orderproduct.save()
-    
+    print("xhgjsc",cart_items)
+    # for item in cart_items:
+    #     orderproduct = OrderProduct()
+    #     print(item.product_id,"product id")
+    #     orderproduct.order_id = order.id 
+    #     orderproduct.Product= item.product
+    #     orderproduct.user_id = request.user.id
+    #     orderproduct.quantity = item.quantity
+    #     orderproduct.product_price = item.product.price
+    #     orderproduct.ordered = True
+    #     orderproduct.save() 
     data = {
         'order_number':order.order_number,
         'transID':payment.payment_id,

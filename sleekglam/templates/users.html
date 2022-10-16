@@ -100,10 +100,12 @@
             <td>{{i.username}}</td>
             <td>{{i.email}}</td>
             <td>{{i.status}}</td>
-
-            <td><a href="{{i.id}}" class="btn btn-warning">Block/Unblock</a></td>
-          
-           
+             
+            {% if i.status %}
+            <td><a href="{{i.id}}" class="btn btn-warning">UnBlock</a></td>
+            {% else %}
+            <td><a href="{{i.id}}" class="btn btn-warning">Block</a></td>
+           {% endif %}
 
 
         </tr>

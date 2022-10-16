@@ -73,25 +73,21 @@
 
 
 
-								<li class="has-dropdown">
-									<a href="">Men</a>
-									<ul class="dropdown">
+								 <li class="has-dropdown">
+									{% comment %} <a href="">Men</a> 
+									<ul class="dropdown"> {% endcomment %}
+										{% if user.is_authenticated %}
 										<li><a href="{% url 'my_profile' %}">My Profile</a></li>
 										<li><a href="{% url 'my_orders' %}">My orders</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="order-complete.html">Order Complete</a></li>
 										<li><a href="{% url 'wish_list' %}">Wishlist</a></li>
 
+                                        {% endif %}
 
-
-									</ul>
-
+									
 
 								</li>
 
-								<li><a href="women.html">Women</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="contact.html">Contact</a></li>
+								
 								<li class="cart"><a href="{% url 'cart' %}"><i class="icon-shopping-cart"></i> Cart {{cart_count }}</a></li>
                                   {% if user.is_authenticated %}
 
@@ -213,7 +209,7 @@
 
 							<div class="desc">
 
-								<a href="{% url 'men' category.id %}"><img src="{{category.thumbnail.url}}"
+								<a href="{% url 'men' category.id%}"><img src="{{category.thumbnail.url}}"
 										class="featured-img"></a>
 								<h2 style="margin-top:-24px;margin-right:160px;">{{category.title}}</h2>
 							</div>
@@ -270,7 +266,7 @@
 									{% endif %}
 							{% endfor %}
                              
-							{% comment %} <span class="price">{{product.stock}}</span> {% endcomment %}
+							
 							 {% if product.stock < 7%}
 							 <div class="">
 							<span class="" style="color:red;margin-right:119px;margin-top:10px">Only few items left</span>

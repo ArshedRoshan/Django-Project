@@ -67,19 +67,14 @@
 						<div class="col-sm-12 text-left menu-1">
 							<ul>
 								<li><a href="{% url 'home' %}">Home</a></li>
-								<li class="has-dropdown active">
-									<a href="men.html">Men</a>
-									<ul class="dropdown">
-										<li><a href="product-detail.html">Product Detail</a></li>
-										<li><a href="cart.html">Shopping Cart</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="order-complete.html">Order Complete</a></li>
-										<li><a href="add-to-wishlist.html">Wishlist</a></li>
-									</ul>
+									{% if user.is_authenticated %}
+											<li><a href="{% url 'my_profile' %}">My Profile</a></li>
+											<li><a href="{% url 'my_orders' %}">My orders</a></li>
+											<li><a href="{% url 'wish_list' %}">Wishlist</a></li>
+
+											{% endif %}
 								</li>
-								<li><a href="women.html">Women</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="contact.html">Contact</a></li>
+
 								<li class="cart"><a href="{% url 'cart' %}"><i class="icon-shopping-cart"></i> Cart {{cart_count}}</a>
 								</li>
 							</ul>
@@ -176,13 +171,13 @@
 							<td>
 								<div class="d-flex">
 								<div>
-									<button class="" style="border:none;" hx-post="{%url 'minus' cart_item.product.id cart_item.id %}" hx-target="#tests{{ cart_item.id }}" hx-trigger="click">-</button>
+									<button class="" id="decre{{cart_item.id}}" style="border:none;" hx-post="{%url 'minus' cart_item.product.id cart_item.id %}" hx-target="#tests{{ cart_item.id }}" hx-trigger="click">-</button>
 								</div>
 							<div id="tests{{cart_item.id}}">
 								{{ cart_item.quantity }}
 								</div>
 							<div>
-								<button  class=""  style="border:none;" hx-post="{%url 'plus' cart_item.product.id cart_item.id %}" hx-target="#tests{{ cart_item.id }}" hx-trigger="click" >+</button>
+								<button id="incre{{cart_item.id}}" class=""  style="border:none;" hx-post="{%url 'plus' cart_item.product.id cart_item.id %}" hx-target="#tests{{ cart_item.id }}" hx-trigger="click" >+</button>
 							</div>
 						</div>
 							</td>
@@ -194,20 +189,25 @@
 									</span> {% endcomment %}
 								</td>
 								<td>{{cart_item.product.price}}</td>
-								<td>{{cart_item.sub_total.coupon.discount}}</td>
-								<td> <a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-danger"
-										onclick="confirm('Are you sure?')">Remove </a></td>
+								<td class="product-total" id="each_total{{cart_item.id}}">{{cart_item.sub_total}}</td>
+								<td> <a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-danger" onclick="confirm('Are you sure?')">Remove </a></td>
 
 								<!-- <td><a href="{{i.id}}" class="btn btn-warning">Block/Unblock</a></td> -->
 							</tr>
 							<div>
-
+								 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
 
 								<script>
+									
+                                    document.body.addEventListener('htmx:configRequest', (event) => {
+                                        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+                                    })
+
+
 
 									$(document).ready(function () {
-														
-										$('#decre{{c.id}}').click(function (e) { 
+                                     
+										$('#decre{{cart_item.id}}').click(function (e) { 
 										e.preventDefault();
 										console.log('entered')
 										k=document.getElementById("tests{{cart_item.id}}").innerHTML;
@@ -215,42 +215,59 @@
 										l=parseInt(k)
 										console.log(l);
 									  
-										value={{c.product.price}} * (l-1);
+										value={{cart_item.product.price}} * (l-1);
+			
+										if((l-1)==1)
+										{ console.log("check",l)
+											 $('#decre{{cart_item.id}}').prop('disabled', true);}
+											 {% comment %} $('#incre{{cart_item.id}}').prop('disabled', false); {% endcomment %}
 									   
-							
+									  
 										console.log(value);   
-										$(this).closest('.product_data').find('#each_total{{cart_item.id}}').val(value);
+										
+										document.getElementById('each_total{{cart_item.id}}').innerHTML=value;
 										
 										
 										
 										});
 										
-										$('#incre{{c.id}}').click(function (e) { 
+										$('#incre{{cart_item.id}}').click(function (e) { 
 										e.preventDefault();
 										console.log('entered')
 										k=document.getElementById("tests{{cart_item.id}}").innerHTML
 									   
 										l=parseInt(k)
-							
-										sum=0;
+			
+										console.log(l)
 										value={{cart_item.product.price}} * (l+1) ;
+										if((l+1)>1)
+										{ console.log("check",l)
+											 $('#decre{{cart_item.id}}').prop('disabled', false);}
 										
-							
-										$(this).closest('.product_data').find('#each_total{{cart_item.id}}').val(value);
+										if((l+1)<=10)
+										{
+											
+			
+											document.getElementById('each_total{{cart_item.id}}').innerHTML=value;
+										}
 										
+									   
+									  
 										
 										
 										});
 										
 										});
 										
-										
-										
-								</script>
+                                </script>
+                                
 
 
-
-
+								 
+                            
+                            
+                            
+                            
 
 								{% endfor %}
 					</tbody>
@@ -452,7 +469,7 @@
 
 
 	<!-- jQuery -->
-	<script src="{% static 'js/jquery.min.js' %}"></script>
+	 <script src="{% static 'js/jquery.min.js' %}"></script> 
 	<!-- popper -->
 	<script src="{% static 'js/popper.min.js' %}"></script>
 	<!-- bootstrap 4.1 -->

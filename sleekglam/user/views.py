@@ -125,10 +125,19 @@ def login(request):
                     return redirect(nextPage)
             except:
                 return redirect('home')
-            
         else:
             messages.error(request, 'Invalid login credentials')
             return redirect('login')
+        
+        if user:
+            obj = Account.objects.get(username=email)
+            if obj.status is True:
+                messages.warning(request,"You are blocked")
+                return redirect('login')
+        
+           
+            
+            
     return render(request, 'login.html')
 
   
@@ -137,39 +146,104 @@ def logout(request):
      messages.success(request,'You are logged out')
      return redirect('home')
   
-def otplogin(request):
-    if request.method == 'POST':
-        otp = request.POST.get('otp')
-        a=Account.objects.filter(phone_number=otp)
-        if a:
-            # otp=2255
-            otp = random.randint(1000,9999)
-            account_sid = "AC6519f2b3de98ced2e2ae204d783a2a44"
-            auth_token = "0c32b92b92c6042dc1809d345be3af2e"
-            client = Client(account_sid,auth_token)
-            msg = client.messages.create(
-                body = f"Your OTP is {otp}",
-                from_ = "+19594568608",
-                to = "+917510768809"
-            )
+# def otplogin(request):
+#     if request.method == 'POST':
+#         otp = request.POST.get('otp')
+#         a=Account.objects.filter(phone_number=otp)
+#         if a:
+#             # otp=2255
+#             otp = random.randint(1000,9999)
+#             account_sid = "AC6519f2b3de98ced2e2ae204d783a2a44"
+#             auth_token = "ff669a2a7fa0a0b58cb012be8a86ca07"
+#             client = Client(account_sid,auth_token)
+#             msg = client.messages.create(
+#                 body = f"Your OTP is {otp}",
+#                 from_ = "+19594568608",
+#                 to = "+917510768809"
+#             )
 
-            request.session['otp'] = otp
-            return redirect('otp_login')
-        else:
-            return redirect('signup')
-    return render(request,'phone.html')
+#             request.session['otp'] = otp
+#             return redirect('otp_login')
+#         else:
+#             return redirect('signup')
+#     return render(request,'phone.html')
             
     
+
+# def otp_login(request):
+#     if request.method == 'POST':
+#         otp = request.POST.get('otp')
+#         otpp = request.session.get('otp')
+#         print(otp,otpp)
+#         print(type(otp),type(otpp))
+#         if int(otp) == otpp:
+#             return redirect('home')
+#     return render(request,'otp.html')
+
 
 def otp_login(request):
     if request.method == 'POST':
         otp = request.POST.get('otp')
-        otpp = request.session.get('otp')
-        print(otp,otpp)
-        print(type(otp),type(otpp))
-        if int(otp) == otpp:
-            return redirect('home')
-    return render(request,'otp.html')
+        print(otp)
+        phone_no = request.session['phone_no']
+        print(phone_no)
+        if Account.objects.filter(phone_number =phone_no).exists():
+            user = Account.objects.get(phone_number =phone_no)
+            print('user',user)
+            
+            account_sid = "AC6519f2b3de98ced2e2ae204d783a2a44"
+            auth_token = "ff669a2a7fa0a0b58cb012be8a86ca07"
+            client = Client(account_sid,auth_token)
+            verification_check = client.verify \
+                .services("VAb8cae8e9f95e6f86522a4010138356dd") \
+                .verification_checks \
+                .create(to='+91'+phone_no, code=otp)
+            if verification_check.status == "approved":
+                auth.login(request,user)
+                request.session['customer'] = request.session.get('phone')
+                return redirect('/')
+            else:
+                messages.info(request,'invalid OTP')
+                return render(request, 'phone.html')
+        else:
+            messages.warning(request, 'invalid phone number')
+            return render(request, 'phone.html')
+    else:
+        return render(request, 'otp.html')
+
+
+
+
+
+
+
+
+def otplogin(request):
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
+        request.session['phone'] = phone
+
+        if Account.objects.filter(phone_number=phone).exists():
+            # totp= pyotp.TOTP('base32secret3232').now()
+            request.session['phone_no'] = phone
+
+            otp = random.randint(1000,9999)
+            account_sid = "AC6519f2b3de98ced2e2ae204d783a2a44"
+            auth_token = "ff669a2a7fa0a0b58cb012be8a86ca07"
+            client = Client(account_sid,auth_token)
+            verification = client.verify \
+                .services("VAb8cae8e9f95e6f86522a4010138356dd") \
+                .verifications \
+                .create(to='+91'+phone, channel='sms')
+            
+
+            return redirect(otp_login)
+        else:
+
+            messages.info(request, "invalid number")
+            return render(request, 'phone.html')
+    else:
+        return render(request, 'phone.html')
 
 def category(request):
         category = categories.objects.all()
@@ -239,6 +313,7 @@ def category(request):
         # category_offer= cat_offer.objects.filter( valid_from__lte=now,valid_to__gte=now)
         
         category_offer1 = cat_offer.objects.all()
+        product_offer1 = product_offer.objects.all()
         
         # print('fsdfs',category_offer)
         # if category_offer:
@@ -270,7 +345,8 @@ def category(request):
             'products':products,
             'Banner':Banner,
            
-            'category_offer1': category_offer1,  
+            'category_offer1': category_offer1, 
+            'product_offer1':product_offer1 
          }
        
         return render(request,'home.html',context)
@@ -345,6 +421,7 @@ def my_orders(request):
 def cancel_order(request,order_id):
 
     order1 = Order.objects.get(id=order_id)
+    print('cancel1',order1)
     order1.status='Cancelled'
     
     order1.save()

@@ -26,7 +26,7 @@
                             <div class="form-data" v-if="!submitted">
                                 
                                 <div class="forms-inputs mb-4"> <span>Otp</span> <input autocomplete="off" type="text" v-model="password" name="otp">
-                                    {% comment %} <div class="invalid-feedback">Password must be 8 character!</div> {% endcomment %}
+                                    {% include 'alert.html' %}
                                 </div>
                                 <div class="mb-3"> <button v-on:click.stop.prevent="submit" type="submit" class="btn btn-dark w-100">Login</button> </div>
                             </div>

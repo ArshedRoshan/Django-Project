@@ -35,8 +35,9 @@ def add_cart(request, product_id):
             cart.save()
         try:
             cart_item = CartItem.objects.get(product=Product,cart=cart,user=request.user)
-            cart_item.quantity += 1 #pressing first time cart button
-            cart_item.save()
+            if cart_item.quantity <10:
+                cart_item.quantity += 1 #pressing first time cart button
+                cart_item.save()
         except CartItem.DoesNotExist:
             cart_item = CartItem.objects.create(
                 product=Product,
@@ -60,9 +61,9 @@ def add_cart(request, product_id):
         try: 
             print('s')
             cart_item=CartItem.objects.get(product=Product,cart=cart)
-            cart_item.quantity += 1
-            cart_item.save()
-
+            if cart_item.quantity <10:
+                cart_item.quantity += 1 #pressing first time cart button
+                cart_item.save()
         except CartItem.DoesNotExist:
             print('y')
             cart_item=CartItem.objects.create(product=Product,quantity=1,cart=cart,)
@@ -177,7 +178,7 @@ def plus(request, product_id, cart_item_id):
             return HttpResponse(cart_item.quantity)
 
 
-    return HttpResponse(1)
+    return HttpResponse(10)
 
 
 
