@@ -88,9 +88,9 @@ WSGI_APPLICATION = 'sleekglam.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'project3',
-        'USER':'postgres',
-        'PASSWORD':'arshed215',
+        'NAME': 'sleekglam',
+        'USER':'arshed',
+        'PASSWORD':'password',
         'HOST':'localhost'
     }
 }
