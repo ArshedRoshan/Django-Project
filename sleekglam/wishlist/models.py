@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from turtle import onkey
+
 from django.db import models
 from adminpanel . models import product
 from user . models import Account
