@@ -2,7 +2,6 @@ from distutils.command.upload import upload
 from email.policy import default
 from math import trunc
 from pickle import TRUE
-from tkinter import CASCADE
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django .dispatch import receiver
