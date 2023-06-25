@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-skexz8s@m9n!=en@xo8)g*0-v73%x4@3^^-t2^zzn4us!65s=r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.sleekglam.online']
 
 
 # Application definition
